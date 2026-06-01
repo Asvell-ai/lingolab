@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lingolab_app/core/router/app_router.dart';
 import 'package:lingolab_app/core/utils/validators.dart';
 import 'package:lingolab_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:lingolab_app/features/auth/presentation/cubit/auth_state.dart';
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Login successful')),
             );
-            // Navigate to home
+            context.go(AppRouter.home);
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),
@@ -111,6 +113,23 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account? "),
+                    GestureDetector(
+                      onTap: () => context.go(AppRouter.register),
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
